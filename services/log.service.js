@@ -7,7 +7,7 @@ const printError = (error) => {
 }
 
 const printSuccess = (message) => {
-    log(chalk.bgGreen(' SUCCESS ', message));
+    log(chalk.bgGrey(' SUCCESS ', message));
 }
 
 const printHelp = () => {

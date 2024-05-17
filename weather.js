@@ -1,6 +1,24 @@
 #!/usr/bit/env node
 import { getArgs } from './helpers/args.js'
-import { printHelp } from './services/log.service.js';
+import { printHelp, printSuccess, printError } from './services/log.service.js';
+import { saveKeyValue, TOKEN_DICTIONARY } from './services/storage.service.js';
+import { getWeather } from './services/api.service.js';
+
+const saveToken = async (token) => {
+    if (!token.length) {
+        printError('No token value')
+        return
+    }
+    try {
+        await saveKeyValue(TOKEN_DICTIONARY.token, token)
+        printSuccess('Token saved')
+    } catch (e) {
+        printError(e.message)
+    }
+
+}
+// 8c9b91e50316cc2e96972fae35667d9e
+// https://api.openweathermap.org/data/2.5/weather?q={city name},{state code},{country code}&appid={API key}
 
 const initCLI = () => {
     const args = getArgs(process.argv)
@@ -11,9 +29,9 @@ const initCLI = () => {
         // save city
     }
     if (args.t) {
-        // save token
+        return saveToken(args.t)
     }
-    // output weather
+    getWeather('moscow')
 }
 
 initCLI();
