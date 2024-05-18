@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const BASE_URL = 'api.openweathermap.org'
 const getWeather = async (city) => {
-    const token = await getKeyValue(TOKEN_DICTIONARY.token)
+    const token = process.env.TOKEN ?? await getKeyValue(TOKEN_DICTIONARY.token)
     const url = `https://${BASE_URL}/data/2.5/weather`
 
     if (!token) {
@@ -18,6 +18,7 @@ const getWeather = async (city) => {
             units: 'metric'
         }
     })
+    console.log(data)
     return data;
 }
 
