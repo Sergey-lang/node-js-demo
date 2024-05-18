@@ -20,6 +20,23 @@ const saveToken = async (token) => {
 // 8c9b91e50316cc2e96972fae35667d9e
 // https://api.openweathermap.org/data/2.5/weather?q={city name},{state code},{country code}&appid={API key}
 
+const getForecast = async () => {
+    try {
+        const weather = await getWeather(process.env.CITY);
+        console.log(weather)
+    } catch (e) {
+        if (e?.response?.status === 404) {
+            printError('Invalid city')
+        } else if (e?.response?.status === 401) {
+            printError('Invalid token')
+        } else {
+            printError(e.message)
+        }
+
+    }
+
+}
+
 const initCLI = () => {
     const args = getArgs(process.argv)
     if (args.h) {
@@ -31,7 +48,7 @@ const initCLI = () => {
     if (args.t) {
         return saveToken(args.t)
     }
-    getWeather('moscow')
+    getForecast()
 }
 
 initCLI();
