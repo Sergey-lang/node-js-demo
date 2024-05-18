@@ -1,4 +1,4 @@
-#!/usr/bit/env node
+#!/usr/bin/env node
 import { getArgs } from './helpers/args.js'
 import { printHelp, printSuccess, printError, printWeather } from './services/log.service.js';
 import { getKeyValue, saveKeyValue, TOKEN_DICTIONARY } from './services/storage.service.js';
